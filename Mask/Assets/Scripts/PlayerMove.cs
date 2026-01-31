@@ -6,7 +6,6 @@ public class PlayerMove : MonoBehaviour
     
 {
     [Header("Movement")]
-    [SerializeField] float moveSpeed = 5f;
     Transform playerTransform;
     [SerializeField] ParticleSystem moveParticles;
     PlayerStats playerStats;
@@ -23,10 +22,6 @@ public class PlayerMove : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.TakeDamage(damage);
-        }
-        else
-        {
-            Debug.LogWarning("PlayerMove.TakeDamage called but PlayerHealth is missing on Player.");
         }
     }
 
@@ -63,7 +58,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 dir = getMoveDir();
 
         enableParticles(dir);
-        float actualMoveSpeed = playerStats != null ? playerStats.CurrentMoveSpeed : moveSpeed;
+        float actualMoveSpeed = playerStats != null ? playerStats.CurrentMoveSpeed : 5f;
         transform.Translate(dir * actualMoveSpeed * Time.deltaTime);
 
     }

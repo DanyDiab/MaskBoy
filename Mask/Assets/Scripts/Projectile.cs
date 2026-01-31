@@ -68,7 +68,6 @@ public class Projectile : MonoBehaviour
         Enemy enemy = other.GetComponent<Enemy>();
         if (enemy != null) {
             enemy.TakeDamage(damage);
-            Debug.Log("Hit enemy for " + damage + " damage!");
         }
         AudioManager.Play(SoundType.Hit);
         Destroy(gameObject);

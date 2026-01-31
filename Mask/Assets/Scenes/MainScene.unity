@@ -36215,6 +36215,8 @@ GameObject:
   - component: {fileID: 580797740}
   - component: {fileID: 580797739}
   - component: {fileID: 580797738}
+  - component: {fileID: 580797742}
+  - component: {fileID: 580797741}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -36252,7 +36254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a5041eece0a4dbb9cb209930771063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7.95
   moveParticles: {fileID: 1011616385}
 --- !u!114 &580797735
 MonoBehaviour:
@@ -36266,9 +36267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99dc0221a1b7905d966c3b087f3dec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 60
-  damage: 100
-  projSpeed: 13.29
   projectile: {fileID: 1742061387830341079, guid: 06213a130aa1067f583792ea4a5fb227, type: 3}
 --- !u!61 &580797736
 BoxCollider2D:
@@ -36372,7 +36370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea95a7ab017f4403849b846f05ba2ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   clampToMaxHealth: 1
   regenPerSecond: 0
   drainPerSecond: 0
@@ -36390,8 +36387,126 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoveSpeed: 5
   baseDamage: 10
+  baseFireRate: 2
+  baseProjectileSpeed: 10
+  baseMaxHealth: 100
   moveSpeedMultiplier: 1
   damageMultiplier: 1
+  fireRateMultiplier: 1
+  projectileSpeedMultiplier: 1
+  maxHealthMultiplier: 1
+--- !u!114 &580797741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580797732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7625ed7aca4acc64a892f3480c63707e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startHealthPercentage: 0.3
+  minPitch: 2
+  maxPitch: 10
+  maxVolume: 1
+--- !u!82 &580797742
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580797732}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &586955599
 GameObject:
   m_ObjectHideFlags: 0
@@ -36815,6 +36930,9 @@ MonoBehaviour:
     volume: 1
   - type: 4
     clip: {fileID: 8300000, guid: 49b7fcb8f7cd983ff8e7bf9f287192c2, type: 3}
+    volume: 1
+  - type: 5
+    clip: {fileID: 8300000, guid: 98298e627fa448b2c9909435d8ee6e1d, type: 3}
     volume: 1
 --- !u!1 &918258186
 GameObject:

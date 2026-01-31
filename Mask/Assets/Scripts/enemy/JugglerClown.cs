@@ -178,7 +178,6 @@ public class JugglerClown : Enemy
     
     void ThrowBalls() {
         if (jugglingBallPrefab == null) {
-            Debug.LogWarning("JugglerClown: No juggling ball prefab assigned!");
             return;
         }
         
@@ -187,12 +186,10 @@ public class JugglerClown : Enemy
         if (throwCount <= 2) {
             // Single ball throw
             ThrowSingleBall(playerTransform.position);
-            Debug.Log("JugglerClown: Single throw #" + throwCount);
         } else {
             // Burst of 3 balls
             ThrowBurstBalls();
             throwCount = 0; // Reset pattern
-            Debug.Log("JugglerClown: Burst throw!");
         }
     }
     

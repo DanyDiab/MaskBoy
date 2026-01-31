@@ -9,7 +9,7 @@ public enum SoundType
     PlayerDeath,
     EnemyDeath,
     Explosion,
-    
+    Heartbeat
 }
 
 [System.Serializable]
@@ -60,6 +60,15 @@ public class AudioManager : MonoBehaviour
         Instance.PlaySound(type);
     }
 
+    public AudioClip GetClip(SoundType type)
+    {
+        if (soundDictionary.TryGetValue(type, out Sound s))
+        {
+            return s.clip;
+        }
+        return null;
+    }
+
     private void PlaySound(SoundType type)
     {
         if (soundDictionary.TryGetValue(type, out Sound s))
@@ -67,10 +76,6 @@ public class AudioManager : MonoBehaviour
             // Random pitch variation between 0.9 and 1.1
             audioSource.pitch = Random.Range(0.9f, 1.1f);
             audioSource.PlayOneShot(s.clip, s.volume);
-        }
-        else
-        {
-            Debug.LogWarning("Sound not found: " + type);
         }
     }
 }

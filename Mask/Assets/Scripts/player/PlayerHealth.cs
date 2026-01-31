@@ -3,20 +3,21 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] float maxHealth = 100f;
     [SerializeField] bool clampToMaxHealth = true;
     float currentHealth;
+    PlayerStats playerStats;
 
     [Header("Over Time (runtime)")]
     [SerializeField] float regenPerSecond = 0f;
     [SerializeField] float drainPerSecond = 0f;
 
     public float CurrentHealth => currentHealth;
-    public float MaxHealth => maxHealth;
+    public float MaxHealth => playerStats != null ? playerStats.CurrentMaxHealth : 100f;
 
     void Awake()
     {
-        currentHealth = maxHealth;
+        playerStats = GetComponent<PlayerStats>();
+        currentHealth = MaxHealth;
     }
 
     void Update()
@@ -25,10 +26,9 @@ public class PlayerHealth : MonoBehaviour
         if (dt <= 0f) return;
 
         float delta = (regenPerSecond - drainPerSecond) * dt;
-        if (Mathf.Abs(delta) > 0f)
-        {
+        if (Mathf.Abs(delta) > 0f){
             currentHealth += delta;
-            if (clampToMaxHealth) currentHealth = Mathf.Min(currentHealth, maxHealth);
+            if (clampToMaxHealth) currentHealth = Mathf.Min(currentHealth, MaxHealth);
             if (currentHealth <= 0f) Die();
         }
     }
@@ -42,14 +42,14 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        Debug.Log($"Player took {damage} damage! Health: {currentHealth}/{maxHealth}");
         if (currentHealth <= 0f) Die();
     }
 
     void Die()
     {
         Debug.Log("Player died!");
-        // Add death logic here (respawn, game over, etc.)
+        AudioManager.Play(SoundType.PlayerDeath);
+        currentHealth = MaxHealth * .1f;
     }
 }
 

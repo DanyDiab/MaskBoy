@@ -6,10 +6,6 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     [Header("Player Proj Properties")]
-
-    [SerializeField] float fireRate;
-    [SerializeField] float damage;
-    [SerializeField] float projSpeed;
     PlayerStats playerStats;
 
     [Header("Projectile")]
@@ -25,7 +21,9 @@ public class PlayerShoot : MonoBehaviour
     }
 
     void Update(){
-        timeBetweenShots = fireRate / 60;
+        float fireRate = playerStats.CurrentFireRate;
+        timeBetweenShots = fireRate > 0 ? 1f / fireRate : 999f;
+        
         float currTime = Time.time;
         if(Input.GetMouseButton((int)MouseButton.Left) && currTime - lastShotTime > timeBetweenShots){
             shoot(Input.mousePosition);
@@ -41,8 +39,7 @@ public class PlayerShoot : MonoBehaviour
         Vector3 dir = (mousePosWorld - playerPos).normalized;
         GameObject projInstance = Instantiate(projectile);
         Projectile projScript = projInstance.GetComponent<Projectile>();
-        float actualDamage = playerStats != null ? playerStats.CurrentDamage : damage;
-        projScript.init(playerTransform.gameObject,dir,projSpeed,actualDamage);
+        projScript.init(playerTransform.gameObject,dir,playerStats.CurrentProjectileSpeed,playerStats.CurrentDamage);
         AudioManager.Play(SoundType.Shoot);
     }
 }

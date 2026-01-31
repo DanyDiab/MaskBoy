@@ -34,7 +34,7 @@ public class MaskManager : MonoBehaviour
         if (mask == null)
         {
             // Reset to defaults
-            if (playerStats != null) playerStats.ApplyMultipliers(1f, 1f);
+            if (playerStats != null) playerStats.ApplyMultipliers(1f, 1f, 1f, 1f, 1f);
             if (playerHealth != null) playerHealth.SetOverTime(0f, 0f);
             if (playerSpriteRenderer != null) playerSpriteRenderer.color = defaultPlayerTint;
             if (screenOverlayImage != null) screenOverlayImage.color = defaultOverlayColor;
@@ -42,7 +42,7 @@ public class MaskManager : MonoBehaviour
             return;
         }
 
-        if (playerStats != null) playerStats.ApplyMultipliers(mask.moveSpeedMultiplier, mask.damageMultiplier);
+        if (playerStats != null) playerStats.ApplyMultipliers(mask.moveSpeedMultiplier, mask.damageMultiplier, mask.fireRateMultiplier, mask.projectileSpeedMultiplier, mask.maxHealthMultiplier);
         if (playerHealth != null) playerHealth.SetOverTime(mask.regenPerSecond, mask.hpDrainPerSecond);
 
         if (playerSpriteRenderer != null) playerSpriteRenderer.color = mask.playerTint;

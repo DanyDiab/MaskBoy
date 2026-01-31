@@ -78,7 +78,6 @@ public class BalloonClown : Enemy
     
     void ThrowBalloon() {
         if (balloonBombPrefab == null) {
-            Debug.LogWarning("BalloonClown: No balloon bomb prefab assigned!");
             return;
         }
         
@@ -91,7 +90,6 @@ public class BalloonClown : Enemy
             bombScript.Initialize(playerTransform.position, bombDamage, gameObject);
         }
         
-        Debug.Log("BalloonClown threw a balloon!");
     }
     
     protected override void Start() {
@@ -101,9 +99,7 @@ public class BalloonClown : Enemy
         if (config == null) {
             moveSpeed = 3f;
             attackRange = 5f;
-            Debug.LogWarning("BalloonClown: No config assigned, using default moveSpeed");
         }
         
-        Debug.Log($"BalloonClown started - moveSpeed: {moveSpeed}, attackRange: {attackRange}");
     }
 }

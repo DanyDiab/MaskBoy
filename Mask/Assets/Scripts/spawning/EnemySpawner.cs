@@ -56,7 +56,6 @@ public class EnemySpawner : MonoBehaviour
 
 
     void SpawnBigWave() {
-        Debug.Log("BIG WAVE INCOMING!");
         SpawnEnemies(bigWaveEnemyCount);
     }
 
@@ -106,7 +105,6 @@ public class EnemySpawner : MonoBehaviour
             camPos.y + camHeight + spawnPadding
         );
         
-        Debug.Log($"Spawn bounds: Min({spawnAreaMin.x}, {spawnAreaMin.y}) Max({spawnAreaMax.x}, {spawnAreaMax.y})");
     }
 
 

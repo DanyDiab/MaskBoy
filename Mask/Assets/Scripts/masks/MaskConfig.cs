@@ -13,6 +13,12 @@ public class MaskConfig : ScriptableObject
     public float damageMultiplier = 1f;
     [Tooltip("Multiplies player movement speed.")]
     public float moveSpeedMultiplier = 1f;
+    [Tooltip("Multiplies player fire rate.")]
+    public float fireRateMultiplier = 1f;
+    [Tooltip("Multiplies player projectile speed.")]
+    public float projectileSpeedMultiplier = 1f;
+    [Tooltip("Multiplies player max health.")]
+    public float maxHealthMultiplier = 1f;
 
     [Header("Health Over Time")]
     [Tooltip("Positive values heal per second.")]

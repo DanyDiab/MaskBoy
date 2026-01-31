@@ -42,7 +42,6 @@ public class Enemy : MonoBehaviour
 
     
     protected virtual void Attack() {
-        Debug.Log("Enemy is attacking");
     }
 
 

@@ -93,8 +93,7 @@ public class BalloonBomb : MonoBehaviour
             }
         }
         
-        // TODO: Add explosion visual/sound effect here
-        Debug.Log("Balloon Bomb Exploded!");
+        AudioManager.Play(SoundType.Explosion);
         Destroy(gameObject);
     }
     
@@ -105,8 +104,8 @@ public class BalloonBomb : MonoBehaviour
         if (other.gameObject == shooter) return;
         if (other.GetComponent<Enemy>() != null) return;
         
-        // Only react to Player
-        if (other.CompareTag("Player")) {
+        // React to Player OR Projectile
+        if (other.CompareTag("Player") || other.GetComponent<Projectile>() != null) {
             Explode();
         }
     }
@@ -118,8 +117,8 @@ public class BalloonBomb : MonoBehaviour
         if (collision.gameObject == shooter) return;
         if (collision.gameObject.GetComponent<Enemy>() != null) return;
         
-        // If hit player, explode immediately
-        if (collision.gameObject.CompareTag("Player")) {
+        // If hit player OR projectile, explode immediately
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.GetComponent<Projectile>() != null) {
             Explode();
         }
         // If flying and hit something else (ground, wall), become mine
