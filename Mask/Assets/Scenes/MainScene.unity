@@ -228,7 +228,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -269,6 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 580797733}
   - component: {fileID: 580797734}
+  - component: {fileID: 580797735}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -305,6 +306,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7.95
+--- !u!114 &580797735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580797732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99dc0221a1b7905d966c3b087f3dec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 60
+  damage: 0
+  projSpeed: 13.29
+  projectile: {fileID: 1742061387830341079, guid: 06213a130aa1067f583792ea4a5fb227, type: 3}
 --- !u!1 &618752975
 GameObject:
   m_ObjectHideFlags: 0

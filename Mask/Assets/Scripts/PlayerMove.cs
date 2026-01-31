@@ -27,7 +27,7 @@ public class PlayerMove : MonoBehaviour
             dir.x += 1;
         }
 
-        return dir;
+        return dir.normalized;
     }
 
     void movePlayer(){
