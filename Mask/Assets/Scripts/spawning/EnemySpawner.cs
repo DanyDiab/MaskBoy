@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] Vector2 spawnAreaMin;
-    [SerializeField] Vector2 spawnAreaMax;
     [SerializeField] float[] spawnWeights;
     [SerializeField] GameObject[] enemyPrefabs;
     [SerializeField] int enemiesPerSpawn = 1;
     [SerializeField] float spawnInterval = 2f;
     [SerializeField] int bigWaveEnemyCount = 10;
     [SerializeField] float bigWaveInterval = 1f;
+    [SerializeField] float spawnPadding = 1f;  // How far outside the screen to spawn
+    
+    // Calculated from camera
+    Vector2 spawnAreaMin;
+    Vector2 spawnAreaMax;
 
 
 
@@ -81,7 +84,29 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CalculateSpawnBounds();
         StartCoroutine(SpawnRoutine());
+    }
+    
+    void CalculateSpawnBounds()
+    {
+        Camera cam = Camera.main;
+        float camHeight = cam.orthographicSize;
+        float camWidth = camHeight * cam.aspect;
+        
+        Vector3 camPos = cam.transform.position;
+        
+        // Calculate screen bounds + padding (spawn just outside screen)
+        spawnAreaMin = new Vector2(
+            camPos.x - camWidth - spawnPadding,
+            camPos.y - camHeight - spawnPadding
+        );
+        spawnAreaMax = new Vector2(
+            camPos.x + camWidth + spawnPadding,
+            camPos.y + camHeight + spawnPadding
+        );
+        
+        Debug.Log($"Spawn bounds: Min({spawnAreaMin.x}, {spawnAreaMin.y}) Max({spawnAreaMax.x}, {spawnAreaMax.y})");
     }
 
 

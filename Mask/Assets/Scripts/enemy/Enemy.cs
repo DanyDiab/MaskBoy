@@ -21,16 +21,15 @@ public class Enemy : MonoBehaviour
     
     protected EnemyState currentState;
     protected Transform enemyTransform;
-    protected static Vector3 targetPosition;
-    protected static bool hasTarget = false;
+    protected static Transform playerTransform;  // Reference to the player
 
     protected virtual void moveEnemy(float attackRange, float moveSpeed) {
-        if (!hasTarget) return;
+        if (playerTransform == null) return;
 
-        float distanceToTarget = Vector3.Distance(enemyTransform.position, targetPosition);
+        float distanceToTarget = Vector3.Distance(enemyTransform.position, playerTransform.position);
         if (distanceToTarget < attackRange) return;
 
-        Vector3 direction = (targetPosition - enemyTransform.position).normalized;
+        Vector3 direction = (playerTransform.position - enemyTransform.position).normalized;
         transform.Translate(direction * moveSpeed * Time.deltaTime);
     }
 
@@ -53,7 +52,9 @@ public class Enemy : MonoBehaviour
 
 
     void UpdateState () {
-        float distanceToTarget = Vector3.Distance(enemyTransform.position, targetPosition);
+        if (playerTransform == null) return;
+        
+        float distanceToTarget = Vector3.Distance(enemyTransform.position, playerTransform.position);
         if (distanceToTarget < attackRange) {
             currentState = EnemyState.Attacking;
         }
@@ -69,6 +70,16 @@ public class Enemy : MonoBehaviour
     {
         enemyTransform = transform;
         
+        // Find the player (only once, since it's static)
+        if (playerTransform == null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                playerTransform = player.transform;
+            }
+        }
+        
         // Load values from config
         if (config != null)
         {
@@ -82,14 +93,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0f;
-            hasTarget = true;
-            targetPosition = mousePosition;
-        }
-
         UpdateState();
         switch (currentState) {
             case EnemyState.Moving:

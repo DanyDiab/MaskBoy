@@ -21,14 +21,14 @@ public class FatClown : Enemy
 
 
     protected override void moveEnemy(float attackRange, float moveSpeed) {
-        if (!hasTarget) return;
+        if (playerTransform == null) return;
         
-        float distanceToTarget = Vector3.Distance(enemyTransform.position, targetPosition);
+        float distanceToTarget = Vector3.Distance(enemyTransform.position, playerTransform.position);
         
         // Check if should start charging
         if (distanceToTarget <= attackRange && currentMove == FatMove.Moving) {
             currentMove = FatMove.Charging;
-            dashDirection = (targetPosition - enemyTransform.position).normalized;
+            dashDirection = (playerTransform.position - enemyTransform.position).normalized;
         }
 
         switch (currentMove) {
@@ -36,6 +36,8 @@ public class FatClown : Enemy
                 base.moveEnemy(attackRange, moveSpeed);
                 break;
             case FatMove.Charging:
+                // Keep tracking player during charge
+                dashDirection = (playerTransform.position - enemyTransform.position).normalized;
                 chargeTimer += Time.deltaTime;
                 if (chargeTimer >= chargeUpTime) {
                     currentMove = FatMove.Dashing;
@@ -58,20 +60,8 @@ public class FatClown : Enemy
     // FatClown has its own Update to handle charge/dash behavior
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0f;
-            hasTarget = true;
-            targetPosition = mousePosition;
-            // Reset dash state on new click
-            currentMove = FatMove.Moving;
-            chargeTimer = 0f;
-        }
-        
         // Always call moveEnemy - FatClown handles its own states internally
         moveEnemy(attackRange, moveSpeed);
-
     }
 
 
