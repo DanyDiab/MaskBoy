@@ -4,21 +4,31 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] protected float health = 100f;
-    [SerializeField] protected float moveSpeed = 5f;
-    
 
+    protected enum EnemyState 
+    {
+        Moving,
+        Attacking,
+    }
+
+    [SerializeField] protected EnemyConfig config;  // Drag your config asset here
+    
+    // These get their values from config in Start()
+    protected float health;
+    protected float moveSpeed;
+    protected float attackRange;
+    protected float damage;
+    
+    protected EnemyState currentState;
+    protected Transform enemyTransform;
     protected static Vector3 targetPosition;
     protected static bool hasTarget = false;
-    
-    protected Transform enemyTransform;
 
-
-    protected virtual void moveEnemy() {
+    protected virtual void moveEnemy(float attackRange, float moveSpeed) {
         if (!hasTarget) return;
 
         float distanceToTarget = Vector3.Distance(enemyTransform.position, targetPosition);
-        if (distanceToTarget < 1.0f) return;
+        if (distanceToTarget < attackRange) return;
 
         Vector3 direction = (targetPosition - enemyTransform.position).normalized;
         transform.Translate(direction * moveSpeed * Time.deltaTime);
@@ -42,11 +52,31 @@ public class Enemy : MonoBehaviour
     }
 
 
+    void UpdateState () {
+        float distanceToTarget = Vector3.Distance(enemyTransform.position, targetPosition);
+        if (distanceToTarget < attackRange) {
+            currentState = EnemyState.Attacking;
+        }
+        else {
+            currentState = EnemyState.Moving;
+        }
+    }
+
+
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         enemyTransform = transform;
+        
+        // Load values from config
+        if (config != null)
+        {
+            health = config.health;
+            moveSpeed = config.moveSpeed;
+            attackRange = config.attackRange;  
+            damage = config.damage;
+        }
     }
 
     // Update is called once per frame
@@ -60,6 +90,14 @@ public class Enemy : MonoBehaviour
             targetPosition = mousePosition;
         }
 
-        moveEnemy();
+        UpdateState();
+        switch (currentState) {
+            case EnemyState.Moving:
+                moveEnemy(attackRange, moveSpeed);
+                break;
+            case EnemyState.Attacking:
+                Attack();
+                break;
+        }
     }
 }
