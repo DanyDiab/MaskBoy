@@ -36,7 +36,49 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision){
         GameObject collidedWith = collision.collider.gameObject;
-        Debug.Log(collidedWith);
+        
+        Debug.Log("Projectile hit (collision): " + collidedWith.name + ", Tag: " + collidedWith.tag);
+        
+        // Ignore shooter (so player doesn't hit themselves)
+        if (collidedWith == shooter) return;
+        
+        // Check if we hit an enemy (by component or tag)
+        Enemy enemy = collidedWith.GetComponent<Enemy>();
+        if (enemy != null) {
+            enemy.TakeDamage(damage);
+            Debug.Log("Hit enemy for " + damage + " damage!");
+        } else if (collidedWith.CompareTag("Enemy")) {
+            // Fallback: try getting Enemy from parent
+            enemy = collidedWith.GetComponentInParent<Enemy>();
+            if (enemy != null) {
+                enemy.TakeDamage(damage);
+                Debug.Log("Hit enemy (via tag) for " + damage + " damage!");
+            }
+        }
+        
+        Destroy(gameObject);
+    }
+    
+    void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log("Projectile hit (trigger): " + other.gameObject.name + ", Tag: " + other.tag);
+        
+        // Ignore shooter
+        if (other.gameObject == shooter) return;
+        
+        // Check if we hit an enemy (by component or tag)
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy != null) {
+            enemy.TakeDamage(damage);
+            Debug.Log("Hit enemy for " + damage + " damage!");
+        } else if (other.CompareTag("Enemy")) {
+            // Fallback: try getting Enemy from parent
+            enemy = other.GetComponentInParent<Enemy>();
+            if (enemy != null) {
+                enemy.TakeDamage(damage);
+                Debug.Log("Hit enemy (via tag) for " + damage + " damage!");
+            }
+        }
+        
         Destroy(gameObject);
     }
 }

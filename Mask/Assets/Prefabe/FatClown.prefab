@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -9009449281058210933}
   m_Layer: 0
   m_Name: FatClown
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,8 +97,8 @@ BoxCollider2D:
   m_Offset: {x: -0.01671791, y: 2.3524666}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: -0.5135135}
-    oldSize: {x: 3.375, y: 2.3125}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 3.625, y: 3.3125}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -148,8 +148,8 @@ SpriteRenderer:
   m_SortingLayerID: 376913397
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6234140021078198812, guid: 93c9831dfb8fa985db80dd0f8787fd92, type: 3}
-  m_Color: {r: 1, g: 0.40481335, b: 0, a: 1}
+  m_Sprite: {fileID: -121097910582171235, guid: c353c6d57830de0d0828b6b9c9c65667, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -172,9 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 2adbca869a71043e6b32836611e16dfb, type: 2}
-  separationRadius: 1
-  separationForce: 0.5
-  collisionPauseTime: 0.15
   dashSpeed: 15
   chargeUpTime: 1
   maxDashDistance: 8

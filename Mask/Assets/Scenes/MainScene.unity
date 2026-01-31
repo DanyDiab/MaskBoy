@@ -36023,7 +36023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 60
-  damage: 0
+  damage: 10
   projSpeed: 13.29
   projectile: {fileID: 1742061387830341079, guid: 06213a130aa1067f583792ea4a5fb227, type: 3}
 --- !u!61 &580797736
@@ -41202,9 +41202,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnWeights:
   - 0
-  - 0
-  - 0
   - 1
+  - 1
+  - 0
   enemyPrefabs:
   - {fileID: 4372219429077457188, guid: c4b75afa66f924b4cb5c763931ea80db, type: 3}
   - {fileID: 4372219429077457188, guid: 13c5b32dc6c5a4ef6b6959b6dea50ca7, type: 3}

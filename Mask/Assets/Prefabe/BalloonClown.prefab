@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3650720453278154863}
   m_Layer: 0
   m_Name: BalloonClown
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,8 +97,8 @@ BoxCollider2D:
   m_Offset: {x: -0.0037270784, y: 2.4184656}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: -0.5135135}
-    oldSize: {x: 3.375, y: 2.3125}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 2.75, y: 3.875}
     newSize: {x: 3.375, y: 2.3125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -148,8 +148,8 @@ SpriteRenderer:
   m_SortingLayerID: 376913397
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6234140021078198812, guid: 93c9831dfb8fa985db80dd0f8787fd92, type: 3}
-  m_Color: {r: 0.5377358, g: 0.27140442, b: 0.27140442, a: 1}
+  m_Sprite: {fileID: -8139152176977383265, guid: 8a1a4b6a7290545ac8639728fa666de5, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -172,9 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 41054e7500616488ebdb2bd7bcd2ee24, type: 2}
-  separationRadius: 1
-  separationForce: 0.5
-  collisionPauseTime: 0.15
   balloonBombPrefab: {fileID: 1257928209511538710, guid: cca63771c8c1b4e56927dd06ba808d83, type: 3}
   throwRange: 5
   throwCooldown: 2
