@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5821e477fca04b4b95a2487f5d0e219, type: 3}
+  m_Name: SaintMask
+  m_EditorClassIdentifier: 
+  displayName: Saint Mask
+  icon: {fileID: 6234140021078198812, guid: 93c9831dfb8fa985db80dd0f8787fd92, type: 3}
+  iconTint: {r: 0.7924528, g: 0.76813006, b: 0.42239228, a: 1}
+  damageMultiplier: 0.8
+  moveSpeedMultiplier: 0.8
+  regenPerSecond: 3
+  hpDrainPerSecond: 0
+  screenOverlayColor: {r: 0.70741254, g: 0.7169812, b: 0.47686014, a: 0.6862745}
+  playerTint: {r: 0.6886792, g: 0.6584858, b: 0.3475881, a: 0.6117647}
+  loopSfx: {fileID: 0}

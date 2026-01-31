@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5821e477fca04b4b95a2487f5d0e219, type: 3}
+  m_Name: BerserkerMask
+  m_EditorClassIdentifier: 
+  displayName: Beserker
+  icon: {fileID: 6234140021078198812, guid: 93c9831dfb8fa985db80dd0f8787fd92, type: 3}
+  iconTint: {r: 0.6886792, g: 0.126691, b: 0.13726242, a: 1}
+  damageMultiplier: 1.8
+  moveSpeedMultiplier: 1.5
+  regenPerSecond: 0
+  hpDrainPerSecond: 3
+  screenOverlayColor: {r: 1, g: 0, b: 0, a: 0.24705882}
+  playerTint: {r: 1, g: 1, b: 1, a: 1}
+  loopSfx: {fileID: 0}
