@@ -77,7 +77,7 @@ public class FatClown : Enemy
 
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
-            collision.gameObject.GetComponent<Player>().TakeDamage(damage);
+            // collision.gameObject.GetComponent<>().TakeDamage(damage);
             currentMove = FatMove.Moving;
             chargeTimer = 0f;
         }
