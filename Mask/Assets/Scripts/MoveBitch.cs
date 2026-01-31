@@ -7,7 +7,7 @@ public class MoveBitch : MonoBehaviour
     Transform transform;
     void Start()
     {
-        transform = transform;
+        transform = GetComponent<Transform>();
     }
 
 
