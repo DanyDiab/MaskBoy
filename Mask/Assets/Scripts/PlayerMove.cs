@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
+    
 {
+    [Header("move speed")]
     [SerializeField] float moveSpeed = 5f;
     Transform playerTransform;
     void Start(){
@@ -33,8 +35,6 @@ public class PlayerMove : MonoBehaviour
         transform.Translate(dir * moveSpeed * Time.deltaTime);
 
     }
-
-
 
 
     void Update(){
