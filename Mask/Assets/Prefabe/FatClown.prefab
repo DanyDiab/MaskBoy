@@ -146,7 +146,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 376913397
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -121097910582171235, guid: c353c6d57830de0d0828b6b9c9c65667, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -172,6 +172,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 2adbca869a71043e6b32836611e16dfb, type: 2}
+  deathParticlesPrefab: {fileID: 1843782422931767314, guid: d8b16db71d02c0e7ab0e9536d1534ec3, type: 3}
+  bloodSplatterPrefabs:
+  - {fileID: 8283068512966999588, guid: 391acc6e51e365245b91b33c71ff9e59, type: 3}
   dashSpeed: 15
   chargeUpTime: 1
   maxDashDistance: 8

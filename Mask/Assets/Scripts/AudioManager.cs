@@ -5,9 +5,11 @@ using UnityEngine;
 public enum SoundType
 {
     Shoot,
-    EnemyHit,
-    PlayerHit,
-    Death
+    Hit,
+    PlayerDeath,
+    EnemyDeath,
+    Explosion,
+    
 }
 
 [System.Serializable]

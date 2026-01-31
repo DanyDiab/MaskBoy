@@ -40,5 +40,6 @@ public class PlayerShoot : MonoBehaviour
         GameObject projInstance = Instantiate(projectile);
         Projectile projScript = projInstance.GetComponent<Projectile>();
         projScript.init(playerTransform.gameObject,dir,projSpeed,damage);
+        AudioManager.Play(SoundType.Shoot);
     }
 }

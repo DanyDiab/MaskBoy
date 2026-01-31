@@ -20,9 +20,7 @@ public class PlayerMove : MonoBehaviour
     }
     
     public void TakeDamage(float damage) {
-        currentHealth -= damage;
-        Debug.Log($"Player took {damage} damage! Health: {currentHealth}/{maxHealth}");
-        
+        currentHealth -= damage;        
         if (currentHealth <= 0) {
             Die();
         }

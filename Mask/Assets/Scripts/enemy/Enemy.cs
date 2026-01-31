@@ -12,7 +12,9 @@ public class Enemy : MonoBehaviour
     }
 
     [SerializeField] protected EnemyConfig config;  // Drag your config asset here
-    
+    [SerializeField] protected GameObject deathParticlesPrefab;
+    [SerializeField] protected GameObject[] bloodSplatterPrefabs;
+
     // These get their values from config in Start()
     protected float health;
     protected float moveSpeed;
@@ -52,6 +54,18 @@ public class Enemy : MonoBehaviour
 
 
     protected virtual void Die() {
+        if (deathParticlesPrefab != null) {
+            GameObject particles = Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
+            Destroy(particles, 1f);
+        }
+
+        if (bloodSplatterPrefabs != null && bloodSplatterPrefabs.Length > 0) {
+            int randIndex = Random.Range(0, bloodSplatterPrefabs.Length);
+            Quaternion randRot = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+            Instantiate(bloodSplatterPrefabs[randIndex], transform.position, randRot);
+        }
+
+        AudioManager.Play(SoundType.EnemyDeath);
         Destroy(gameObject);
     }
 

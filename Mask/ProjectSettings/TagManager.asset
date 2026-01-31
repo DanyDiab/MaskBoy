@@ -46,14 +46,14 @@ TagManager:
   - name: Floor
     uniqueID: 4116371215
     locked: 0
-  - name: Particles
-    uniqueID: 1378110153
-    locked: 0
   - name: Enemy Proj
     uniqueID: 3413169913
     locked: 0
   - name: Enemies
     uniqueID: 376913397
+    locked: 0
+  - name: Particles
+    uniqueID: 1378110153
     locked: 0
   - name: Player Proj
     uniqueID: 3236272689

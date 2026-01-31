@@ -88,7 +88,6 @@ public class FatClown : Enemy
 
 
     void OnCollisionEnter2D(Collision2D collision) {
-        Debug.Log($"FatClown collided with: {collision.gameObject.name}, Tag: {collision.gameObject.tag}");
         
         if (collision.gameObject.CompareTag("Player")) {
             // Deal damage to player
@@ -106,12 +105,10 @@ public class FatClown : Enemy
     
     // In case the player's collider is a trigger
     void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log($"FatClown triggered by: {other.gameObject.name}, Tag: {other.gameObject.tag}");
         
         if (other.gameObject.CompareTag("Player")) {
             PlayerMove player = other.gameObject.GetComponent<PlayerMove>();
             if (player != null) {
-                Debug.Log($"Dealing {damage} damage to player (trigger)");
                 player.TakeDamage(damage);
             }
             

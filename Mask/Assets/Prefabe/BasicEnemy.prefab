@@ -48,9 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 0}
-  separationRadius: 1
-  separationForce: 0.5
-  collisionPauseTime: 0.15
+  deathParticlesPrefab: {fileID: 1843782422931767314, guid: d8b16db71d02c0e7ab0e9536d1534ec3, type: 3}
 --- !u!50 &7486959418265363707
 Rigidbody2D:
   serializedVersion: 4

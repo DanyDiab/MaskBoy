@@ -146,7 +146,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 376913397
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 6234140021078198812, guid: 93c9831dfb8fa985db80dd0f8787fd92, type: 3}
   m_Color: {r: 0.033428, g: 0.5, b: 0.011792451, a: 1}
@@ -172,6 +172,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: c2b06209f32e840b69f7f05c1e93860b, type: 2}
+  deathParticlesPrefab: {fileID: 1843782422931767314, guid: d8b16db71d02c0e7ab0e9536d1534ec3, type: 3}
+  bloodSplatterPrefabs:
+  - {fileID: 8283068512966999588, guid: 391acc6e51e365245b91b33c71ff9e59, type: 3}
   jugglingBallPrefab: {fileID: 8239778048954801714, guid: 29b8210519e4c4e07ad9307cb385c140, type: 3}
   throwRange: 6
   throwCooldown: 1.5
