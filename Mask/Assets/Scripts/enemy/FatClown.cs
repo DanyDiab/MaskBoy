@@ -94,10 +94,7 @@ public class FatClown : Enemy
             // Deal damage to player
             PlayerMove player = collision.gameObject.GetComponent<PlayerMove>();
             if (player != null) {
-                Debug.Log($"Dealing {damage} damage to player");
                 player.TakeDamage(damage);
-            } else {
-                Debug.Log("PlayerMove component not found!");
             }
             
             // Stop dashing and get tired

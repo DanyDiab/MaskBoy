@@ -41202,10 +41202,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnWeights:
   - 0
-  - 1
+  - 0.5
+  - 0.5
   enemyPrefabs:
   - {fileID: 4372219429077457188, guid: c4b75afa66f924b4cb5c763931ea80db, type: 3}
   - {fileID: 4372219429077457188, guid: 13c5b32dc6c5a4ef6b6959b6dea50ca7, type: 3}
+  - {fileID: 4372219429077457188, guid: 2447af14075da4fe79488de22d796689, type: 3}
   enemiesPerSpawn: 1
   spawnInterval: 5
   bigWaveEnemyCount: 10

@@ -22,6 +22,11 @@ public class Enemy : MonoBehaviour
     protected EnemyState currentState;
     protected Transform enemyTransform;
     protected static Transform playerTransform;  // Reference to the player
+    
+    // Collision pause variables
+    protected float collisionPauseTime = 0.1f;
+    protected float pauseTimer = 0f;
+    protected bool isPaused = false;
 
     protected virtual void moveEnemy(float attackRange, float moveSpeed) {
         if (playerTransform == null) return;
