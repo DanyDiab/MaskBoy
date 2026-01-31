@@ -7,13 +7,15 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] float[] spawnWeights;
     [SerializeField] GameObject[] enemyPrefabs;
-    [SerializeField] float spawnPadding = 1f;  // How far outside the screen to spawn
-    [SerializeField] float spawnInterval = 0.1f; // Time between individual spawns in a wave
+    [SerializeField] float spawnPadding = 3f;  // How far outside the screen to spawn
+    [SerializeField] float spawnInterval = 0.05f; // Time between individual spawns in a wave
 
     [Header("Wave Settings")]
     [SerializeField] int baseEnemyCount = 1;
     [SerializeField] float waveGrowthFactor = 1.1f;
     [SerializeField] float timeBetweenWaves = 3f;
+    [SerializeField] float initialHealthMultiplier = 0.1f; // Starts low (one-shot)
+    [SerializeField] float healthGrowthFactor = 1.1f;
 
     // State
     int currentWave = 0;
@@ -91,12 +93,12 @@ public class EnemySpawner : MonoBehaviour
         float count = baseEnemyCount * Mathf.Pow(waveGrowthFactor, wave - 1);
         
         // Every 5th wave is a big wave (1.5x multiplier)
-        if (wave % 5 == 0)
+        if (wave % 5 == 0 && wave != 0)
         {
             count *= 1.5f;
         }
 
-        return Mathf.CeilToInt(count);
+        return (int) Mathf.Round(count);
     }
 
     void StartWave()
@@ -114,15 +116,24 @@ public class EnemySpawner : MonoBehaviour
         
         Debug.Log($"Starting Wave {currentWave} with {count} enemies.");
 
+        float waveHealthMultiplier = initialHealthMultiplier * Mathf.Pow(healthGrowthFactor, currentWave - 1);
+
         for (int i = 0; i < count; i++) {
             int weightedIndex = GetWeightedRandomIndex();
             Vector2 spawnPosition = GetRandomSpawnPosition();
-            Instantiate(enemyPrefabs[weightedIndex], spawnPosition, Quaternion.identity);
+            GameObject enemyObj = Instantiate(enemyPrefabs[weightedIndex], spawnPosition, Quaternion.identity);
+            
+            Enemy enemyScript = enemyObj.GetComponent<Enemy>();
+            if (enemyScript != null)
+            {
+                enemyScript.SetHealthMultiplier(waveHealthMultiplier);
+            }
             
             yield return new WaitForSeconds(spawnInterval);
         }
         
         isSpawning = false;
+        CheckWaveStatus();
     }
 
     // Start is called before the first frame update

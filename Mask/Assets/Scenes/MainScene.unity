@@ -42208,17 +42208,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnWeights:
   - 0
-  - 1
-  - 1
   - 0
+  - 0
+  - 1
   enemyPrefabs:
   - {fileID: 4372219429077457188, guid: c4b75afa66f924b4cb5c763931ea80db, type: 3}
   - {fileID: 4372219429077457188, guid: 13c5b32dc6c5a4ef6b6959b6dea50ca7, type: 3}
   - {fileID: 4372219429077457188, guid: 2447af14075da4fe79488de22d796689, type: 3}
   - {fileID: 4372219429077457188, guid: 7d16971745f9f4d338fe400acb9185b6, type: 3}
   spawnPadding: 1
-  spawnInterval: 5
-  baseEnemyCount: 5
+  spawnInterval: 0.05
+  baseEnemyCount: 1
   waveGrowthFactor: 1.1
   timeBetweenWaves: 3
 --- !u!4 &1160160753
@@ -47385,7 +47385,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -47395,7 +47395,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

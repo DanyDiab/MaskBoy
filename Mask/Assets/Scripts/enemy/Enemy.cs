@@ -30,6 +30,13 @@ public class Enemy : MonoBehaviour
     protected float pauseTimer = 0f;
     protected bool isPaused = false;
 
+    protected float healthMultiplier = 1f;
+
+    public void SetHealthMultiplier(float multiplier)
+    {
+        healthMultiplier = multiplier;
+    }
+
     protected virtual void moveEnemy(float attackRange, float moveSpeed) {
         if (playerTransform == null) return;
 
@@ -103,7 +110,7 @@ public class Enemy : MonoBehaviour
         // Load values from config
         if (config != null)
         {
-            health = config.health;
+            health = config.health * healthMultiplier;
             moveSpeed = config.moveSpeed;
             attackRange = config.attackRange;  
             damage = config.damage;
