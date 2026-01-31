@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int enemiesPerSpawn = 1;
     [SerializeField] float spawnInterval = 2f;
     [SerializeField] int bigWaveEnemyCount = 10;
-    [SerializeField] float bigWaveInterval = 300f;
+    [SerializeField] float bigWaveInterval = 1f;
 
 
 
