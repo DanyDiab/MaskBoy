@@ -15,12 +15,15 @@ public class Projectile : MonoBehaviour
 
 
     void Update(){
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+
+        Vector3 move = Vector3.up;
+        move *= speed;
+        move.z = 0;
+        transform.Translate(move * Time.deltaTime);
     }
 
     public void init(GameObject shooter, Vector3 shootDir, float speed, float damage){
         Vector3 shootPos = shooter.transform.position;
-        Debug.LogFormat("ShootDir | {0}\nshooter | {1}", shootDir,shootPos);
 
         transform.position = shooter.transform.position;
         this.shooter = shooter;
@@ -28,7 +31,8 @@ public class Projectile : MonoBehaviour
         this.speed = speed;
         this.damage = damage;
 
-        transform.rotation = Quaternion.FromToRotation(Vector3.up, shootDir);
+        float rot = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg - 90f;
+        transform.rotation = Quaternion.Euler(0, 0, rot);
     }
 
     void OnCollisionEnter2D(Collision2D collision){

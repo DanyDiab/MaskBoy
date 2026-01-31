@@ -36,6 +36,7 @@ public class PlayerShoot : MonoBehaviour
         mousePosWorld.z = 0f;
         Debug.Log(mousePosWorld);
         Vector3 playerPos = transform.position;
+        playerPos.z = 0f;
         Vector3 dir = (mousePosWorld - playerPos).normalized;
         GameObject projInstance = Instantiate(projectile);
         Projectile projScript = projInstance.GetComponent<Projectile>();
