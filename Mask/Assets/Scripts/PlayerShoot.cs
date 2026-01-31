@@ -34,7 +34,6 @@ public class PlayerShoot : MonoBehaviour
     void shoot(Vector3 mousePos){
         Vector3 mousePosWorld = Camera.main.ScreenToWorldPoint(mousePos);
         mousePosWorld.z = 0f;
-        Debug.Log(mousePosWorld);
         Vector3 playerPos = transform.position;
         playerPos.z = 0f;
         Vector3 dir = (mousePosWorld - playerPos).normalized;
