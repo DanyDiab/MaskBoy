@@ -36023,7 +36023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 60
-  damage: 10
+  damage: 100
   projSpeed: 13.29
   projectile: {fileID: 1742061387830341079, guid: 06213a130aa1067f583792ea4a5fb227, type: 3}
 --- !u!61 &580797736

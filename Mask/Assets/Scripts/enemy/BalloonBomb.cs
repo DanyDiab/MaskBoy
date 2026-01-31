@@ -14,12 +14,26 @@ public class BalloonBomb : MonoBehaviour
     [SerializeField] float mineLifetime = 3f;
     [SerializeField] float explosionRadius = 1f;
     
+    [Header("Sprites")]
+    [SerializeField] Sprite flyingSprite;
+    [SerializeField] Sprite mineSprite;
+    
+    SpriteRenderer spriteRenderer;
     BombState currentState = BombState.Flying;
     Vector3 targetPosition;
     Vector3 flyDirection;
     float mineTimer = 0f;
     bool hasExploded = false;
     GameObject shooter;
+    
+    void Start() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        // Set initial flying sprite
+        if (spriteRenderer != null && flyingSprite != null) {
+            spriteRenderer.sprite = flyingSprite;
+        }
+    }
     
     public void Initialize(Vector3 target, float bombDamage, GameObject thrower) {
         targetPosition = target;
@@ -57,8 +71,11 @@ public class BalloonBomb : MonoBehaviour
     void BecomeMineLand() {
         currentState = BombState.Mine;
         mineTimer = 0f;
-        // Stop moving - now it's a mine
-        // Could add visual change here (change sprite, add warning indicator)
+        
+        // Change to mine sprite
+        if (spriteRenderer != null && mineSprite != null) {
+            spriteRenderer.sprite = mineSprite;
+        }
     }
     
     void Explode() {
