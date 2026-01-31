@@ -15,7 +15,6 @@ public class Projectile : MonoBehaviour
 
 
     void Update(){
-
         Vector3 move = Vector3.up;
         move *= speed;
         move.z = 0;
