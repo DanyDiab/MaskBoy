@@ -10,7 +10,11 @@ public class Projectile : MonoBehaviour
     float speed;
     float damage;
     void Start(){
+        Destroy(gameObject, 5f); // Fallback lifetime
+    }
 
+    void OnBecameInvisible() {
+        Destroy(gameObject);
     }
 
 

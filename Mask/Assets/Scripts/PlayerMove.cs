@@ -9,26 +9,25 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     Transform playerTransform;
     [SerializeField] ParticleSystem moveParticles;
-    
-    [Header("Health")]
-    [SerializeField] float maxHealth = 100f;
-    float currentHealth;
+    PlayerStats playerStats;
+    PlayerHealth playerHealth;
     
     void Start(){
         playerTransform = transform;
-        currentHealth = maxHealth;
+        playerStats = GetComponent<PlayerStats>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
     
     public void TakeDamage(float damage) {
-        currentHealth -= damage;        
-        if (currentHealth <= 0) {
-            Die();
+        // Keep this method because enemies call PlayerMove.TakeDamage()
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(damage);
         }
-    }
-    
-    void Die() {
-        Debug.Log("Player died!");
-        // Add death logic here (respawn, game over, etc.)
+        else
+        {
+            Debug.LogWarning("PlayerMove.TakeDamage called but PlayerHealth is missing on Player.");
+        }
     }
 
     Vector3 getMoveDir(){
@@ -64,7 +63,8 @@ public class PlayerMove : MonoBehaviour
         Vector3 dir = getMoveDir();
 
         enableParticles(dir);
-        transform.Translate(dir * moveSpeed * Time.deltaTime);
+        float actualMoveSpeed = playerStats != null ? playerStats.CurrentMoveSpeed : moveSpeed;
+        transform.Translate(dir * actualMoveSpeed * Time.deltaTime);
 
     }
 

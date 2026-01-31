@@ -10,6 +10,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] float fireRate;
     [SerializeField] float damage;
     [SerializeField] float projSpeed;
+    PlayerStats playerStats;
 
     [Header("Projectile")]
     [SerializeField] GameObject projectile;
@@ -19,6 +20,7 @@ public class PlayerShoot : MonoBehaviour
     void Start()
     {
         playerTransform = transform;
+        playerStats = GetComponent<PlayerStats>();
         lastShotTime = 0;
     }
 
@@ -39,7 +41,8 @@ public class PlayerShoot : MonoBehaviour
         Vector3 dir = (mousePosWorld - playerPos).normalized;
         GameObject projInstance = Instantiate(projectile);
         Projectile projScript = projInstance.GetComponent<Projectile>();
-        projScript.init(playerTransform.gameObject,dir,projSpeed,damage);
+        float actualDamage = playerStats != null ? playerStats.CurrentDamage : damage;
+        projScript.init(playerTransform.gameObject,dir,projSpeed,actualDamage);
         AudioManager.Play(SoundType.Shoot);
     }
 }
