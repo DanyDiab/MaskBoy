@@ -50,9 +50,11 @@ public class Enemy : MonoBehaviour
         if (health <= 0) Die();
     }
 
-
+    public static event System.Action OnEnemyDeath;
 
     protected virtual void Die() {
+        OnEnemyDeath?.Invoke();
+
         if (deathParticlesPrefab != null) {
             GameObject particles = Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
             Destroy(particles, 1f);

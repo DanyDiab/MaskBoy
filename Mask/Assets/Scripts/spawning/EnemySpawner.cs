@@ -4,27 +4,69 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Spawn Settings")]
     [SerializeField] float[] spawnWeights;
     [SerializeField] GameObject[] enemyPrefabs;
-    [SerializeField] int enemiesPerSpawn = 1;
-    [SerializeField] float spawnInterval = 2f;
-    [SerializeField] int bigWaveEnemyCount = 10;
-    [SerializeField] float bigWaveInterval = 1f;
     [SerializeField] float spawnPadding = 1f;  // How far outside the screen to spawn
-    
+    [SerializeField] float spawnInterval = 0.1f; // Time between individual spawns in a wave
+
+    [Header("Wave Settings")]
+    [SerializeField] int baseEnemyCount = 1;
+    [SerializeField] float waveGrowthFactor = 1.1f;
+    [SerializeField] float timeBetweenWaves = 3f;
+
+    // State
+    int currentWave = 0;
+    int enemiesAlive = 0;
+    bool isSpawning = false;
+    bool waveInProgress = false;
+
     // Calculated from camera
     Vector2 spawnAreaMin;
     Vector2 spawnAreaMax;
 
+    public static event System.Action<int> OnWaveStart;
 
+    void OnEnable()
+    {
+        Enemy.OnEnemyDeath += OnEnemyDied;
+    }
+
+    void OnDisable()
+    {
+        Enemy.OnEnemyDeath -= OnEnemyDied;
+    }
+
+    void OnEnemyDied()
+    {
+        if (enemiesAlive > 0)
+        {
+            enemiesAlive--;
+        }
+
+        CheckWaveStatus();
+    }
+
+    void CheckWaveStatus()
+    {
+        if (enemiesAlive <= 0 && !isSpawning && waveInProgress)
+        {
+            waveInProgress = false;
+            StartCoroutine(StartNextWaveDelay());
+        }
+    }
+
+    IEnumerator StartNextWaveDelay()
+    {
+        yield return new WaitForSeconds(timeBetweenWaves);
+        StartWave();
+    }
 
     Vector2 GetRandomSpawnPosition() {
         float x = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
         float y = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
         return new Vector2(x, y);
     }
-
-
 
     int GetWeightedRandomIndex() {
         float totalWeight = 0f;
@@ -43,48 +85,51 @@ public class EnemySpawner : MonoBehaviour
         return 0;
     }
 
+    int CalculateEnemiesForWave(int wave)
+    {
+        // Formula: Base * (Growth ^ (Wave - 1))
+        float count = baseEnemyCount * Mathf.Pow(waveGrowthFactor, wave - 1);
+        
+        // Every 5th wave is a big wave (1.5x multiplier)
+        if (wave % 5 == 0)
+        {
+            count *= 1.5f;
+        }
 
+        return Mathf.CeilToInt(count);
+    }
 
-    void SpawnEnemies(int count) {
+    void StartWave()
+    {
+        currentWave++;
+        OnWaveStart?.Invoke(currentWave);
+        int count = CalculateEnemiesForWave(currentWave);
+        StartCoroutine(SpawnWaveRoutine(count));
+    }
+
+    IEnumerator SpawnWaveRoutine(int count) {
+        isSpawning = true;
+        waveInProgress = true;
+        enemiesAlive = count; // Set expectation immediately so we don't trigger "wave done" early
+        
+        Debug.Log($"Starting Wave {currentWave} with {count} enemies.");
+
         for (int i = 0; i < count; i++) {
             int weightedIndex = GetWeightedRandomIndex();
             Vector2 spawnPosition = GetRandomSpawnPosition();
-            GameObject enemy = Instantiate(enemyPrefabs[weightedIndex], spawnPosition, Quaternion.identity);
-        }
-    }
-
-
-
-    void SpawnBigWave() {
-        SpawnEnemies(bigWaveEnemyCount);
-    }
-
-
-
-    IEnumerator SpawnRoutine() {
-        float timeSinceLastBigWave = 0f;
-        while (true) {
-            timeSinceLastBigWave += spawnInterval;
-
-            if (timeSinceLastBigWave >= bigWaveInterval) {
-                SpawnBigWave();
-                timeSinceLastBigWave = 0f;
-            }
-            else {
-                SpawnEnemies(enemiesPerSpawn);
-            }
+            Instantiate(enemyPrefabs[weightedIndex], spawnPosition, Quaternion.identity);
             
             yield return new WaitForSeconds(spawnInterval);
         }
+        
+        isSpawning = false;
     }
-
-
 
     // Start is called before the first frame update
     void Start()
     {
         CalculateSpawnBounds();
-        StartCoroutine(SpawnRoutine());
+        StartWave();
     }
     
     void CalculateSpawnBounds()
@@ -104,13 +149,11 @@ public class EnemySpawner : MonoBehaviour
             camPos.x + camWidth + spawnPadding,
             camPos.y + camHeight + spawnPadding
         );
-        
     }
-
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Logic handled via events and coroutines
     }
 }

@@ -9,5 +9,5 @@ public class EnemyConfig : ScriptableObject
     [Header("Combat")]
     public float health = 100f;
     public float damage = 10f;
-    public float attackRange = 1.0f;  // How close to target before attacking
+    public float attackRange = 1.0f;
 }
