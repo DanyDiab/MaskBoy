@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     [Header("move speed")]
     [SerializeField] float moveSpeed = 5f;
     Transform playerTransform;
+    [SerializeField] ParticleSystem moveParticles;
     void Start(){
         playerTransform = transform;
     }
@@ -30,8 +31,21 @@ public class PlayerMove : MonoBehaviour
         return dir.normalized;
     }
 
+    void enableParticles(Vector3 dir){
+        bool isMoving = dir != Vector3.zero;
+        if (isMoving) {
+            if (!moveParticles.isPlaying) {
+                moveParticles.Play();
+            }
+        } else {
+            moveParticles.Stop();
+        }
+    }
+
     void movePlayer(){
         Vector3 dir = getMoveDir();
+
+        enableParticles(dir);
         transform.Translate(dir * moveSpeed * Time.deltaTime);
 
     }
