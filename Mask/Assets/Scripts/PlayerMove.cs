@@ -5,12 +5,32 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
     
 {
-    [Header("move speed")]
+    [Header("Movement")]
     [SerializeField] float moveSpeed = 5f;
     Transform playerTransform;
     [SerializeField] ParticleSystem moveParticles;
+    
+    [Header("Health")]
+    [SerializeField] float maxHealth = 100f;
+    float currentHealth;
+    
     void Start(){
         playerTransform = transform;
+        currentHealth = maxHealth;
+    }
+    
+    public void TakeDamage(float damage) {
+        currentHealth -= damage;
+        Debug.Log($"Player took {damage} damage! Health: {currentHealth}/{maxHealth}");
+        
+        if (currentHealth <= 0) {
+            Die();
+        }
+    }
+    
+    void Die() {
+        Debug.Log("Player died!");
+        // Add death logic here (respawn, game over, etc.)
     }
 
     Vector3 getMoveDir(){
