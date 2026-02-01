@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] float[] spawnWeights;
     [SerializeField] GameObject[] enemyPrefabs;
+    [SerializeField] GameObject spawnWarningPrefab;
     [SerializeField] float spawnPadding = 3f;  // How far outside the screen to spawn
     [SerializeField] float spawnInterval = 0.05f; // Time between individual spawns in a wave
 
@@ -121,19 +122,35 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < count; i++) {
             int weightedIndex = GetWeightedRandomIndex();
             Vector2 spawnPosition = GetRandomSpawnPosition();
-            GameObject enemyObj = Instantiate(enemyPrefabs[weightedIndex], spawnPosition, Quaternion.identity);
+            GameObject prefab = enemyPrefabs[weightedIndex];
             
-            Enemy enemyScript = enemyObj.GetComponent<Enemy>();
-            if (enemyScript != null)
-            {
-                enemyScript.SetHealthMultiplier(waveHealthMultiplier);
-            }
+            StartCoroutine(SpawnEnemyWithDelay(prefab, spawnPosition, waveHealthMultiplier));
             
             yield return new WaitForSeconds(spawnInterval);
         }
         
         isSpawning = false;
         CheckWaveStatus();
+    }
+
+    IEnumerator SpawnEnemyWithDelay(GameObject prefab, Vector2 position, float healthMultiplier)
+    {
+        GameObject warning = null;
+        if (spawnWarningPrefab != null)
+        {
+            warning = Instantiate(spawnWarningPrefab, position, Quaternion.identity);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        if (warning != null) Destroy(warning);
+
+        GameObject enemyObj = Instantiate(prefab, position, Quaternion.identity);
+        Enemy enemyScript = enemyObj.GetComponent<Enemy>();
+        if (enemyScript != null)
+        {
+            enemyScript.SetHealthMultiplier(healthMultiplier);
+        }
     }
 
     // Start is called before the first frame update

@@ -42216,11 +42216,14 @@ MonoBehaviour:
   - {fileID: 4372219429077457188, guid: 13c5b32dc6c5a4ef6b6959b6dea50ca7, type: 3}
   - {fileID: 4372219429077457188, guid: 2447af14075da4fe79488de22d796689, type: 3}
   - {fileID: 4372219429077457188, guid: 7d16971745f9f4d338fe400acb9185b6, type: 3}
+  spawnWarningPrefab: {fileID: 356267573723246513, guid: e79a950d35b73b6858b65c69af6ee25e, type: 3}
   spawnPadding: 1
   spawnInterval: 0.05
   baseEnemyCount: 1
   waveGrowthFactor: 1.1
   timeBetweenWaves: 3
+  initialHealthMultiplier: 0.1
+  healthGrowthFactor: 1.1
 --- !u!4 &1160160753
 Transform:
   m_ObjectHideFlags: 0
