@@ -45,7 +45,15 @@ public class MaskMenuUI : MonoBehaviour
         panelRect = panel != null ? panel.GetComponent<RectTransform>() : null;
         if (panelRect != null)
         {
+            // Enforce "Stretch All" (Bottom-Right preset in Unity) to fill the screen
+            panelRect.anchorMin = Vector2.zero;
+            panelRect.anchorMax = Vector2.one;
+            panelRect.pivot = new Vector2(0.5f, 0.5f);
+            panelRect.sizeDelta = Vector2.zero; // Removes any padding/margins
+            panelRect.anchoredPosition = Vector2.zero; // Centers it
+
             panelShownPos = panelRect.anchoredPosition;
+            
             panelCanvasGroup = panel.GetComponent<CanvasGroup>();
             if (panelCanvasGroup == null) panelCanvasGroup = panel.AddComponent<CanvasGroup>();
         }
@@ -141,34 +149,33 @@ public class MaskMenuUI : MonoBehaviour
     {
         // Ensure active while animating
         if (panel != null) panel.SetActive(true);
+        if (panelCanvasGroup != null) panelCanvasGroup.alpha = 1f; // Keep it fully visible
 
         float t = 0f;
         float duration = Mathf.Max(0.01f, openCloseDuration);
 
-        Vector2 startPos = open ? panelShownPos + hiddenOffset : panelShownPos;
-        Vector2 endPos = open ? panelShownPos : panelShownPos + hiddenOffset;
+        // Move from below the screen to the shown position
+        float verticalOffset = Screen.height;
+        Vector2 hiddenPos = new Vector2(panelShownPos.x, panelShownPos.y - verticalOffset);
 
-        float startA = open ? 0f : 1f;
-        float endA = open ? 1f : 0f;
+        Vector2 startPos = open ? hiddenPos : panelShownPos;
+        Vector2 endPos = open ? panelShownPos : hiddenPos;
 
         panelRect.anchoredPosition = startPos;
-        if (panelCanvasGroup != null) panelCanvasGroup.alpha = startA;
 
         while (t < duration)
         {
             t += Time.unscaledDeltaTime;
             float k = Mathf.Clamp01(t / duration);
-            // easeOutCubic
+            // easeOutCubic for smooth movement
             float eased = 1f - Mathf.Pow(1f - k, 3f);
 
             panelRect.anchoredPosition = Vector2.LerpUnclamped(startPos, endPos, eased);
-            if (panelCanvasGroup != null) panelCanvasGroup.alpha = Mathf.LerpUnclamped(startA, endA, eased);
 
             yield return null;
         }
 
         panelRect.anchoredPosition = endPos;
-        if (panelCanvasGroup != null) panelCanvasGroup.alpha = endA;
 
         if (!open)
         {
@@ -182,8 +189,11 @@ public class MaskMenuUI : MonoBehaviour
     void ApplyPanelVisual(bool open)
     {
         if (panelRect == null) return;
-        panelRect.anchoredPosition = open ? panelShownPos : (panelShownPos + hiddenOffset);
-        if (panelCanvasGroup != null) panelCanvasGroup.alpha = open ? 1f : 0f;
+        float verticalOffset = Screen.height;
+        Vector2 hiddenPos = new Vector2(panelShownPos.x, panelShownPos.y - verticalOffset);
+        
+        panelRect.anchoredPosition = open ? panelShownPos : hiddenPos;
+        if (panelCanvasGroup != null) panelCanvasGroup.alpha = 1f;
     }
 
     void ConfigureOverlayRect()
@@ -204,4 +214,3 @@ public class MaskMenuUI : MonoBehaviour
         screenOverlayImage.raycastTarget = false;
     }
 }
-
