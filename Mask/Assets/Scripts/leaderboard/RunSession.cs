@@ -5,6 +5,15 @@ public class RunSession : MonoBehaviour
 {
     public static RunSession Instance { get; private set; }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void EnsureExists()
+    {
+        // Guarantees RunSession exists even if not placed in a scene.
+        if (FindObjectOfType<RunSession>() != null) return;
+        GameObject go = new GameObject("RunSession");
+        go.AddComponent<RunSession>();
+    }
+
     [Header("Run State")]
     [SerializeField] int currentWave = 0;
     [SerializeField] string initials = "";

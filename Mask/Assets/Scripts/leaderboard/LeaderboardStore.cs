@@ -28,7 +28,14 @@ public static class LeaderboardStore
         try
         {
             EntryList list = JsonUtility.FromJson<EntryList>(json);
-            return list?.entries ?? new List<Entry>();
+            List<Entry> entries = list?.entries ?? new List<Entry>();
+            entries.Sort((a, b) =>
+            {
+                int waveCmp = b.wave.CompareTo(a.wave); // descending
+                if (waveCmp != 0) return waveCmp;
+                return a.timestampUtc.CompareTo(b.timestampUtc); // older first
+            });
+            return entries;
         }
         catch
         {
