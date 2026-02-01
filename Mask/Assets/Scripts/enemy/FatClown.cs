@@ -15,8 +15,8 @@ public class FatClown : Enemy
     [SerializeField] float dashSpeed = 15f;   
     [SerializeField] float chargeUpTime = 0.5f;
     [SerializeField] float maxDashDistance = 8f;  // How far to dash before getting tired
-    [SerializeField] float tiredDuration = 0.5f;  // How long to rest when tired
-
+    [SerializeField] float tiredDuration = 0.5f;
+    [SerializeField] int contactDamage;
     Vector3 dashDirection;
     Vector3 dashStartPosition;
     float chargeTimer = 0f;
@@ -87,16 +87,17 @@ public class FatClown : Enemy
     }
 
 
+
     void OnCollisionEnter2D(Collision2D collision) {
         
         if (collision.gameObject.CompareTag("Player")) {
             // Deal damage to player
-            PlayerMove player = collision.gameObject.GetComponent<PlayerMove>();
+            PlayerHealth player = collision.gameObject.GetComponent<PlayerHealth>();
             if (player != null) {
-                player.TakeDamage(damage);
+                AudioManager.Play(SoundType.Hit);
+                player.TakeDamage(contactDamage);
             }
             
-            // Stop dashing and get tired
             currentMove = FatMove.Tired;
             tiredTimer = 0f;
             chargeTimer = 0f;
@@ -109,7 +110,8 @@ public class FatClown : Enemy
         if (other.gameObject.CompareTag("Player")) {
             PlayerMove player = other.gameObject.GetComponent<PlayerMove>();
             if (player != null) {
-                player.TakeDamage(damage);
+                AudioManager.Play(SoundType.Hit);
+                player.TakeDamage(contactDamage);
             }
             
             currentMove = FatMove.Tired;

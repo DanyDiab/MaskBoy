@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
-    
 {
     [Header("Movement")]
     Transform playerTransform;
@@ -11,6 +10,12 @@ public class PlayerMove : MonoBehaviour
     PlayerStats playerStats;
     PlayerHealth playerHealth;
     
+    // Direction Blocking Flags
+    bool blockUp;
+    bool blockDown;
+    bool blockLeft;
+    bool blockRight;
+
     void Start(){
         playerTransform = transform;
         playerStats = GetComponent<PlayerStats>();
@@ -18,7 +23,6 @@ public class PlayerMove : MonoBehaviour
     }
     
     public void TakeDamage(float damage) {
-        // Keep this method because enemies call PlayerMove.TakeDamage()
         if (playerHealth != null)
         {
             playerHealth.TakeDamage(damage);
@@ -27,16 +31,18 @@ public class PlayerMove : MonoBehaviour
 
     Vector3 getMoveDir(){
         Vector3 dir = Vector3.zero;
-        if(Input.GetKey(KeyCode.W)){
+        
+        // Check input and blocking flags
+        if(Input.GetKey(KeyCode.W) && !blockUp){
             dir.y += 1;
         }
-        if(Input.GetKey(KeyCode.S)){
+        if(Input.GetKey(KeyCode.S) && !blockDown){
             dir.y -=1;
         }
-        if(Input.GetKey(KeyCode.A)){
+        if(Input.GetKey(KeyCode.A) && !blockLeft){
             dir.x -= 1;
         }
-        if(Input.GetKey(KeyCode.D)){
+        if(Input.GetKey(KeyCode.D) && !blockRight){
             dir.x += 1;
         }
 
@@ -59,12 +65,49 @@ public class PlayerMove : MonoBehaviour
 
         enableParticles(dir);
         float actualMoveSpeed = playerStats != null ? playerStats.CurrentMoveSpeed : 5f;
+        
+        // Using Translate as requested
         transform.Translate(dir * actualMoveSpeed * Time.deltaTime);
-
     }
 
 
     void Update(){
         movePlayer();
+    }
+
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        UpdateWallState(collision.gameObject.tag, true);
+    }
+
+    void OnCollisionExit2D(Collision2D collision) {
+        UpdateWallState(collision.gameObject.tag, false);
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        UpdateWallState(other.tag, true);
+    }
+
+    void OnTriggerExit2D(Collider2D other) {
+        UpdateWallState(other.tag, false);
+    }
+
+    void UpdateWallState(string tag, bool isBlocked)
+    {
+        switch (tag)
+        {
+            case "TopWall":
+                blockUp = isBlocked;
+                break;
+            case "BotWall":
+                blockDown = isBlocked;
+                break;
+            case "LeftWall":
+                blockLeft = isBlocked;
+                break;
+            case "RIghtWall":
+                blockRight = isBlocked;
+                break;
+        }
     }
 }

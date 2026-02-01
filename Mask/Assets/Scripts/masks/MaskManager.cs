@@ -38,7 +38,6 @@ public class MaskManager : MonoBehaviour
             if (playerHealth != null) playerHealth.SetOverTime(0f, 0f);
             if (playerSpriteRenderer != null) playerSpriteRenderer.color = defaultPlayerTint;
             if (screenOverlayImage != null) screenOverlayImage.color = defaultOverlayColor;
-            StopLoopSfx();
             return;
         }
 
@@ -48,30 +47,8 @@ public class MaskManager : MonoBehaviour
         if (playerSpriteRenderer != null) playerSpriteRenderer.color = mask.playerTint;
         if (screenOverlayImage != null) screenOverlayImage.color = mask.screenOverlayColor;
 
-        PlayLoopSfx(mask.loopSfx);
     }
 
-    void PlayLoopSfx(AudioClip clip)
-    {
-        if (loopAudioSource == null) return;
-
-        if (clip == null)
-        {
-            StopLoopSfx();
-            return;
-        }
-
-        loopAudioSource.clip = clip;
-        loopAudioSource.loop = true;
-        if (!loopAudioSource.isPlaying) loopAudioSource.Play();
-    }
-
-    void StopLoopSfx()
-    {
-        if (loopAudioSource == null) return;
-        loopAudioSource.Stop();
-        loopAudioSource.clip = null;
-    }
 
     // Used by UI manager to set overlay reference at runtime
     public void SetOverlay(Image overlay) => screenOverlayImage = overlay;

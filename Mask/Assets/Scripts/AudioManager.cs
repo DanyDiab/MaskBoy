@@ -9,7 +9,8 @@ public enum SoundType
     PlayerDeath,
     EnemyDeath,
     Explosion,
-    Heartbeat
+    Heartbeat,
+    Lightning
 }
 
 [System.Serializable]

@@ -6,6 +6,10 @@ TagManager:
   tags:
   - New tag
   - Enemy
+  - LeftWall
+  - RIghtWall
+  - TopWall
+  - BotWall
   layers:
   - Default
   - TransparentFX

@@ -176,7 +176,7 @@ MonoBehaviour:
   bloodSplatterPrefabs:
   - {fileID: 8283068512966999588, guid: 391acc6e51e365245b91b33c71ff9e59, type: 3}
   balloonBombPrefab: {fileID: 1257928209511538710, guid: cca63771c8c1b4e56927dd06ba808d83, type: 3}
-  throwRange: 5
+  throwRange: 10
   throwCooldown: 2
   throwWindup: 0.5
   bombDamage: 20

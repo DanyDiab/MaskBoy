@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class PlayerHealth : MonoBehaviour
     public float CurrentHealth => currentHealth;
     public float MaxHealth => playerStats != null ? playerStats.CurrentMaxHealth : 100f;
 
+    // Event for damage shower
+    public static event Action<float, Vector3> OnPlayerDamage;
+
     void Awake()
     {
         playerStats = GetComponent<PlayerStats>();
@@ -27,8 +31,7 @@ public class PlayerHealth : MonoBehaviour
 
         float delta = (regenPerSecond - drainPerSecond) * dt;
         if (Mathf.Abs(delta) > 0f){
-            currentHealth += delta;
-            if (clampToMaxHealth) currentHealth = Mathf.Min(currentHealth, MaxHealth);
+            if (clampToMaxHealth) TakeDamage(delta);
             if (currentHealth <= 0f) Die();
         }
     }
@@ -42,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        OnPlayerDamage?.Invoke(damage, transform.position);
         if (currentHealth <= 0f) Die();
     }
 
