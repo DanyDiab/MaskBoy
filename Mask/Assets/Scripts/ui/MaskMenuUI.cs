@@ -149,7 +149,6 @@ public class MaskMenuUI : MonoBehaviour
     {
         // Ensure active while animating
         if (panel != null) panel.SetActive(true);
-        if (panelCanvasGroup != null) panelCanvasGroup.alpha = 1f; // Keep it fully visible
 
         float t = 0f;
         float duration = Mathf.Max(0.01f, openCloseDuration);
@@ -193,7 +192,6 @@ public class MaskMenuUI : MonoBehaviour
         Vector2 hiddenPos = new Vector2(panelShownPos.x, panelShownPos.y - verticalOffset);
         
         panelRect.anchoredPosition = open ? panelShownPos : hiddenPos;
-        if (panelCanvasGroup != null) panelCanvasGroup.alpha = 1f;
     }
 
     void ConfigureOverlayRect()
