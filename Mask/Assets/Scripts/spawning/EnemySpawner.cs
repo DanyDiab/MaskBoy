@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
         Enemy.OnEnemyDeath -= OnEnemyDied;
     }
 
-    void OnEnemyDied()
+    void OnEnemyDied(Vector3 pos)
     {
         if (enemiesAlive > 0)
         {
