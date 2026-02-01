@@ -5,15 +5,22 @@ public class PlayerHealth : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField] bool clampToMaxHealth = true;
-    float currentHealth;
+    [SerializeField] float currentHealth;
     PlayerStats playerStats;
 
     [Header("Over Time (runtime)")]
     [SerializeField] float regenPerSecond = 0f;
     [SerializeField] float drainPerSecond = 0f;
+    [SerializeField] bool useDiscreteTicks = true;
+    [SerializeField] float tickIntervalSeconds = 1f;
+    float tickTimer = 0f;
+    [SerializeField] bool showOverTimePopups = true;
 
     public float CurrentHealth => currentHealth;
     public float MaxHealth => playerStats != null ? playerStats.CurrentMaxHealth : 100f;
+    public float RegenPerSecond => regenPerSecond;
+    public float DrainPerSecond => drainPerSecond;
+    public float NetPerSecond => regenPerSecond - drainPerSecond;
 
     // Event for damage shower
     public static event Action<float, Vector3> OnPlayerDamage;
@@ -29,11 +36,52 @@ public class PlayerHealth : MonoBehaviour
         float dt = Time.deltaTime;
         if (dt <= 0f) return;
 
-        float delta = (regenPerSecond - drainPerSecond) * dt;
-        if (Mathf.Abs(delta) > 0f){
-            if (clampToMaxHealth) TakeDamage(delta);
-            if (currentHealth <= 0f) Die();
+        float perSecondNet = (regenPerSecond - drainPerSecond);
+        if (Mathf.Abs(perSecondNet) <= 0f) return;
+
+        if (useDiscreteTicks)
+        {
+            tickTimer += dt;
+            float interval = Mathf.Max(0.05f, tickIntervalSeconds);
+
+            while (tickTimer >= interval)
+            {
+                tickTimer -= interval;
+                ApplyHealthDelta(perSecondNet * interval);
+            }
         }
+        else
+        {
+            // Smooth over-time (per frame)
+            ApplyHealthDelta(perSecondNet * dt);
+        }
+    }
+
+    void ApplyHealthDelta(float delta)
+    {
+        if (Mathf.Abs(delta) <= 0f) return;
+
+        float before = currentHealth;
+        currentHealth += delta;
+
+        if (clampToMaxHealth)
+        {
+            float max = MaxHealth;
+            if (currentHealth > max) currentHealth = max;
+        }
+
+        float actualDelta = currentHealth - before;
+
+        // Drive DamageShower/DamageText:
+        // - positive value = damage (red)
+        // - negative value = heal (green)
+        if (showOverTimePopups && Mathf.Abs(actualDelta) > 0f)
+        {
+            // convert health delta to "damage amount" convention
+            OnPlayerDamage?.Invoke(-actualDelta, transform.position);
+        }
+
+        if (currentHealth <= 0f) Die();
     }
 
     public void SetOverTime(float regen, float drain)

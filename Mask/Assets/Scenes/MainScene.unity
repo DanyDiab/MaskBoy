@@ -39008,8 +39008,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampToMaxHealth: 1
+  currentHealth: 0
   regenPerSecond: 0
   drainPerSecond: 0
+  useDiscreteTicks: 1
+  tickIntervalSeconds: 1
+  showOverTimePopups: 1
 --- !u!114 &580797740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45322,7 +45326,7 @@ MonoBehaviour:
   - {fileID: 4372219429077457188, guid: 13c5b32dc6c5a4ef6b6959b6dea50ca7, type: 3}
   - {fileID: 4372219429077457188, guid: 2447af14075da4fe79488de22d796689, type: 3}
   - {fileID: 4372219429077457188, guid: 7d16971745f9f4d338fe400acb9185b6, type: 3}
-  spawnWarningPrefab: {fileID: 356267573723246513, guid: e79a950d35b73b6858b65c69af6ee25e, type: 3}
+  spawnWarningPrefab: {fileID: 0}
   spawnPadding: 1
   spawnInterval: 0.05
   baseEnemyCount: 1
