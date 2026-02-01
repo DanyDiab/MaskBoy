@@ -122,6 +122,60 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &87921119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 87921121}
+  - component: {fileID: 87921120}
+  m_Layer: 0
+  m_Name: UpgradeDropManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &87921120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87921119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d937e359df7624b9d901505c2a7cc9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropChance: 1
+  possibleUpgrades:
+  - {fileID: 11400000, guid: cfc791f6b203245a184d752a180e63d5, type: 2}
+  - {fileID: 11400000, guid: b7d5224619127428da93a01342e002ba, type: 2}
+  - {fileID: 11400000, guid: eaf71391581a84bb2a8a3b1129196daf, type: 2}
+  - {fileID: 11400000, guid: 49625645ba6a145cca36bf5412b4ef92, type: 2}
+  - {fileID: 11400000, guid: b762a64e37f4642bf9916d3658a10bf6, type: 2}
+  - {fileID: 11400000, guid: 9a2d788aadea443fd867db32ef603e00, type: 2}
+  upgradePickupPrefab: {fileID: 1930601739225073977, guid: be1d34fc304ad4da9a1235b4c1bcb6e3, type: 3}
+  debugLogs: 1
+--- !u!4 &87921121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87921119}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 547.56696, y: 217.68945, z: -10.115575}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &128736018
 GameObject:
   m_ObjectHideFlags: 0
@@ -39031,11 +39085,16 @@ MonoBehaviour:
   baseFireRate: 2
   baseProjectileSpeed: 10
   baseMaxHealth: 100
-  moveSpeedMultiplier: 1
-  damageMultiplier: 1
-  fireRateMultiplier: 1
-  projectileSpeedMultiplier: 1
-  maxHealthMultiplier: 1
+  maskMoveSpeedMultiplier: 1
+  maskDamageMultiplier: 1
+  maskFireRateMultiplier: 1
+  maskProjectileSpeedMultiplier: 1
+  maskMaxHealthMultiplier: 1
+  upgradeMoveSpeedMultiplier: 1
+  upgradeDamageMultiplier: 1
+  upgradeFireRateMultiplier: 1
+  upgradeProjectileSpeedMultiplier: 1
+  upgradeMaxHealthMultiplier: 1
 --- !u!114 &580797741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39713,6 +39772,53 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 586955600}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &754273176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 754273178}
+  - component: {fileID: 754273177}
+  m_Layer: 0
+  m_Name: UpgradeShower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &754273177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754273176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3165a03ba9d34ac3b18695800fc7c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupPrefab: {fileID: 6899655206769616747, guid: 859267ba1ab144d429bda3d9a636d82b, type: 3}
+  canvas: {fileID: 1556590430}
+  worldOffset: {x: 0, y: 1.5, z: 0}
+--- !u!4 &754273178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754273176}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8020121, y: 1.2334648, z: 0.23999782}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &864998266
@@ -51265,3 +51371,5 @@ SceneRoots:
   - {fileID: 2084852315}
   - {fileID: 1942969625}
   - {fileID: 665034213}
+  - {fileID: 87921121}
+  - {fileID: 754273178}
