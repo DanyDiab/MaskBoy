@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6c7240b125bb2b51dade12fc3cf46362
+guid: 25bbfbb4ea8185522a25bb334ff2dfc8
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639055386705114040
+  platformSettingsDirtyTick: 639055440195317660
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,6 +121,26 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
+  - name: MaskMenu_Frame_0
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 652
+      y: 1101
+      width: 0
+      height: 0
+    spriteID: e2d460394550fe6e8b6ec7d9c2a800f3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 12, y: 741}
   - name: MaskMenu_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -129,10 +149,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 627
+      y: 1101
       width: 640
-      height: 70
-    spriteID: 9dae9e037093a7fbabd02f778e6045ff
+      height: 52
+    spriteID: fdfdece97fca5900bb3c6aa79e77cc14
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -140,7 +160,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 627}
+    uvTransform: {x: 4, y: 1101}
   - name: MaskMenu_Frame_2
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -149,10 +169,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 499
+      y: 992
       width: 640
-      height: 120
-    spriteID: 9f484908de7284ee38870390bcc5c065
+      height: 101
+    spriteID: 8286419a9eb9b44008d3ab841c87bea6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -160,7 +180,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 499}
+    uvTransform: {x: 4, y: 992}
   - name: MaskMenu_Frame_3
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -169,10 +189,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 285
+      y: 839
       width: 640
-      height: 206
-    spriteID: fb9ab927e4f934dd5861b375de2f5e36
+      height: 145
+    spriteID: c9804b060b34878328b23b1a5026fa09
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -180,8 +200,48 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 285}
+    uvTransform: {x: 4, y: 839}
   - name: MaskMenu_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 637
+      width: 640
+      height: 194
+    spriteID: 4686f905404c00aadb507d298e2e3897
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 637}
+  - name: MaskMenu_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 332
+      width: 640
+      height: 297
+    spriteID: 4f974f2da47a87e759dbaa45a4188523
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 332}
+  - name: MaskMenu_Frame_6
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -191,8 +251,8 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 640
-      height: 273
-    spriteID: f797c9ccd4634ed0a8486e2812c78dec
+      height: 320
+    spriteID: c25621343f8dbe8fea49ca9f0c8080f0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -210,6 +270,15 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
+    - name: MaskMenu_Frame_0
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 640
+        height: 360
+      spriteId: e2d460394550fe6e8b6ec7d9c2a800f3
     - name: MaskMenu_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
@@ -217,8 +286,8 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 640
-        height: 70
-      spriteId: 9dae9e037093a7fbabd02f778e6045ff
+        height: 52
+      spriteId: fdfdece97fca5900bb3c6aa79e77cc14
     - name: MaskMenu_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
@@ -226,8 +295,8 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 640
-        height: 120
-      spriteId: 9f484908de7284ee38870390bcc5c065
+        height: 101
+      spriteId: 8286419a9eb9b44008d3ab841c87bea6
     - name: MaskMenu_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
@@ -235,8 +304,8 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 640
-        height: 206
-      spriteId: fb9ab927e4f934dd5861b375de2f5e36
+        height: 145
+      spriteId: c9804b060b34878328b23b1a5026fa09
     - name: MaskMenu_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
@@ -244,8 +313,26 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 640
-        height: 273
-      spriteId: f797c9ccd4634ed0a8486e2812c78dec
+        height: 194
+      spriteId: 4686f905404c00aadb507d298e2e3897
+    - name: MaskMenu_Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 640
+        height: 297
+      spriteId: 4f974f2da47a87e759dbaa45a4188523
+    - name: MaskMenu_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 640
+        height: 320
+      spriteId: c25621343f8dbe8fea49ca9f0c8080f0
     linkedCells: []
     parentIndex: -1
   platformSettings:

@@ -10,6 +10,7 @@ TagManager:
   - RIghtWall
   - TopWall
   - BotWall
+  - Tooltip
   layers:
   - Default
   - TransparentFX
@@ -64,4 +65,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3243703507
+    locked: 0
+  - name: Cursor
+    uniqueID: 3214612717
     locked: 0

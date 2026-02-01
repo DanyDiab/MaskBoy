@@ -1,59 +1,70 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CursorManager : MonoBehaviour
 {
     [SerializeField] private Sprite cursorSprite;
-    [SerializeField] private int sortingOrder = 1000;
+    [SerializeField] private Vector2 hotSpot = new Vector2(0.5f, 0.5f); // Pivot: (0.5, 0.5) is center, (0, 1) is top-left
+    [SerializeField] private int sortingOrder = 30000; // Very high number to sit on top of all UI
     
-    private GameObject cursorObj;
-    private SpriteRenderer cursorRenderer;
+    private GameObject cursorCanvasObj;
+    private RectTransform cursorRect;
+    private Image cursorImage;
 
     void Start()
     {
         // Hide system cursor
         Cursor.visible = false;
-
-        // Create the cursor visual
-        CreateCursorObject();
+        CreateCursorCanvas();
     }
 
-    void CreateCursorObject()
+    void CreateCursorCanvas()
     {
-        if (cursorObj == null)
+        if (cursorCanvasObj == null)
         {
-            cursorObj = new GameObject("CustomCursor");
-            cursorRenderer = cursorObj.AddComponent<SpriteRenderer>();
-            cursorRenderer.sprite = cursorSprite;
-            cursorRenderer.sortingOrder = sortingOrder;
-            cursorRenderer.sortingLayerName = "Player";
+            // Create a dedicated Canvas for the cursor
+            cursorCanvasObj = new GameObject("CursorCanvas");
             
-            // Ensure it doesn't get destroyed if you want it to persist, 
-            // but this script itself must persist then. 
-            // For now, we'll keep it local to the scene or assume the Manager persists.
+            // Make it a child of this manager to keep hierarchy clean
+            cursorCanvasObj.transform.SetParent(transform);
+
+            // Configure Canvas for Overlay (draws on top of everything)
+            Canvas canvas = cursorCanvasObj.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = sortingOrder; 
+
+            // Add CanvasScaler to ensure consistent sizing if needed, 
+            // but for a raw cursor, pixel-perfect is often preferred. 
+            // We'll leave it raw for now to match input 1:1.
+
+            // Create the Cursor Image
+            GameObject imageObj = new GameObject("CursorImage");
+            imageObj.transform.SetParent(cursorCanvasObj.transform);
             
-            // Parent it to this manager to keep hierarchy clean
-            cursorObj.transform.SetParent(transform);
+            cursorImage = imageObj.AddComponent<Image>();
+            cursorImage.sprite = cursorSprite;
+            cursorImage.raycastTarget = false; // Important: Don't block clicks!
+            cursorImage.SetNativeSize(); // Size it to the sprite's actual pixel size
+            
+            cursorRect = imageObj.GetComponent<RectTransform>();
+            cursorRect.pivot = hotSpot; 
+            cursorRect.localScale = new Vector3(0.25f, 0.25f, 1f); // Scale down to 25% size
         }
     }
 
     void Update()
     {
-        // Enforce hidden cursor
+        // Enforce hidden system cursor
         if (Cursor.visible) Cursor.visible = false;
-
         UpdateCursorPosition();
     }
 
     void UpdateCursorPosition()
     {
-        if (cursorObj != null && Camera.main != null)
+        if (cursorRect != null)
         {
-            Vector3 mousePos = Input.mousePosition;
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-            worldPos.z = 0f; // Keep it on the 2D plane
-            cursorObj.transform.position = worldPos;
+            // In Overlay mode, setting position to Input.mousePosition works perfectly
+            cursorRect.position = Input.mousePosition;
         }
     }
 

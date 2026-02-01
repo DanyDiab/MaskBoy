@@ -106,6 +106,13 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0f) Die();
     }
 
+    public void ScaleHealth(float ratio)
+    {
+        if (ratio <= 0f) return;
+        currentHealth *= ratio;
+        if (clampToMaxHealth && currentHealth > MaxHealth) currentHealth = MaxHealth;
+    }
+
     void Die()
     {
         Debug.Log("Player died!");

@@ -41,7 +41,26 @@ public class MaskManager : MonoBehaviour
             return;
         }
 
-        if (playerStats != null) playerStats.ApplyMultipliers(mask.moveSpeedMultiplier, mask.damageMultiplier, mask.fireRateMultiplier, mask.projectileSpeedMultiplier, mask.maxHealthMultiplier);
+        if (playerStats != null)
+        {
+            float oldMax = playerStats.CurrentMaxHealth;
+            
+            playerStats.ApplyMultipliers(mask.moveSpeedMultiplier, mask.damageMultiplier, mask.fireRateMultiplier, mask.projectileSpeedMultiplier, mask.maxHealthMultiplier);
+            
+            float newMax = playerStats.CurrentMaxHealth;
+            
+            // Adjust current health proportionally
+            if (playerHealth != null && oldMax > 0f)
+            {
+                playerHealth.ScaleHealth(newMax / oldMax);
+            }
+        }
+        else if (playerHealth != null)
+        {
+             // Fallback if no stats component
+             playerHealth.SetOverTime(mask.regenPerSecond, mask.hpDrainPerSecond);
+        }
+
         if (playerHealth != null) playerHealth.SetOverTime(mask.regenPerSecond, mask.hpDrainPerSecond);
 
         if (playerSpriteRenderer != null) playerSpriteRenderer.color = mask.playerTint;
