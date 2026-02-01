@@ -101,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Player died!");
         AudioManager.Play(SoundType.PlayerDeath);
-        currentHealth = MaxHealth * .1f;
+        GameSceneManager.LoadScene("GameOver");
     }
 }
 
