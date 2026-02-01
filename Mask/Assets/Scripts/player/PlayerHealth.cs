@@ -24,11 +24,14 @@ public class PlayerHealth : MonoBehaviour
 
     // Event for damage shower
     public static event Action<float, Vector3> OnPlayerDamage;
+    // Event for HUD (current, max)
+    public static event Action<float, float> OnPlayerHealthChanged;
 
     void Awake()
     {
         playerStats = GetComponent<PlayerStats>();
         currentHealth = MaxHealth;
+        OnPlayerHealthChanged?.Invoke(currentHealth, MaxHealth);
     }
 
     void Update()
@@ -81,6 +84,11 @@ public class PlayerHealth : MonoBehaviour
             OnPlayerDamage?.Invoke(-actualDelta, transform.position);
         }
 
+        if (Mathf.Abs(actualDelta) > 0f)
+        {
+            OnPlayerHealthChanged?.Invoke(currentHealth, MaxHealth);
+        }
+
         if (currentHealth <= 0f) Die();
     }
 
@@ -94,6 +102,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= damage;
         OnPlayerDamage?.Invoke(damage, transform.position);
+        OnPlayerHealthChanged?.Invoke(currentHealth, MaxHealth);
         if (currentHealth <= 0f) Die();
     }
 
@@ -102,6 +111,7 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player died!");
         AudioManager.Play(SoundType.PlayerDeath);
         currentHealth = MaxHealth * .1f;
+        OnPlayerHealthChanged?.Invoke(currentHealth, MaxHealth);
     }
 }
 

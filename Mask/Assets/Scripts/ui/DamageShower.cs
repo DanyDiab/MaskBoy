@@ -5,6 +5,8 @@ public class DamageShower : MonoBehaviour
 {
     [SerializeField] GameObject damagePopupPrefab;
     [SerializeField] Canvas canvas;
+    [SerializeField] bool showCurrentHpInsteadOfDelta = true;
+    PlayerHealth playerHealth;
 
     void Awake()
     {
@@ -12,6 +14,12 @@ public class DamageShower : MonoBehaviour
         if (canvas == null)
         {
             canvas = FindObjectOfType<Canvas>();
+        }
+
+        if (playerHealth == null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null) playerHealth = player.GetComponent<PlayerHealth>();
         }
         
         if (damagePopupPrefab == null)
@@ -58,7 +66,15 @@ public class DamageShower : MonoBehaviour
                 damageText.SetColor(Color.red);
             }
 
-            damageText.Setup(Mathf.RoundToInt(Mathf.Abs(damage)).ToString());
+            if (showCurrentHpInsteadOfDelta && playerHealth != null)
+            {
+                string hpText = $"{Mathf.CeilToInt(playerHealth.CurrentHealth)}/{Mathf.CeilToInt(playerHealth.MaxHealth)}";
+                damageText.Setup(hpText);
+            }
+            else
+            {
+                damageText.Setup(Mathf.RoundToInt(Mathf.Abs(damage)).ToString());
+            }
         }
     }
 }
