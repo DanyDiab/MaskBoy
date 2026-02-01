@@ -39313,13 +39313,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea95a7ab017f4403849b846f05ba2ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clampToMaxHealth: 1
   currentHealth: 0
   regenPerSecond: 0
   drainPerSecond: 0
   useDiscreteTicks: 1
   tickIntervalSeconds: 1
-  showOverTimePopups: 1
 --- !u!114 &580797740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51387,6 +51385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagePopupPrefab: {fileID: 6899655206769616747, guid: 859267ba1ab144d429bda3d9a636d82b, type: 3}
   canvas: {fileID: 1556590430}
+  showCurrentHpInsteadOfDelta: 1
 --- !u!224 &2084852315
 RectTransform:
   m_ObjectHideFlags: 0
