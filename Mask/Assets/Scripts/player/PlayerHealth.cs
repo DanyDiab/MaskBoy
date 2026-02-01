@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Current")]
     [SerializeField] float currentHealth = 100f;
+    [SerializeField] bool clampToMaxHealth = true;
 
     [Header("Over Time (runtime)")]
     [SerializeField] float regenPerSecond = 0f;
